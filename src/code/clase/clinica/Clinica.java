@@ -192,4 +192,9 @@ public class Clinica implements Comparable<Clinica>{
 
         return text;
     }
+
+    public Clinica copy(Clinica c){
+
+        return new Clinica(c.getId(), c.getNume(), c.getOras(), c.getAdresa(), c.getSpecializari(), c.getMediciID());
+    }
 }

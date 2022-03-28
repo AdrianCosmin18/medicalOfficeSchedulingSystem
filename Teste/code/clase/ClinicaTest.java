@@ -69,4 +69,12 @@ class ClinicaTest {
         System.out.println(clinica1);
     }
 
+    @Test
+    public void testCopy(){
+
+        Clinica clinica = new Clinica();
+        clinica = clinica.copy(clinica2);
+        System.out.println(clinica.describe());
+    }
+
 }

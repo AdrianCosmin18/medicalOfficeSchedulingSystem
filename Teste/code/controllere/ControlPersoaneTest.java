@@ -1,13 +1,10 @@
-package code.controller;
+package code.controllere;
 
 import code.clase.persoane.Client;
 import code.clase.persoane.Medic;
 import code.clase.persoane.Persoana;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,7 +62,15 @@ class ControlPersoaneTest {
     @Test
     public void testContains(){
 
-        assertEquals(true, cp.contains(new Client("10,Nedelcu Cosmin,12345,22,Client,Timisul de Jos 3,0773941106")));
+        Client cosmin = new Client("10,Nedelcu Cosmin,12345,22,Client,Timisul de Jos 3,0773941106");
+        Medic laur = new Medic("3,Laurentiu,1234,26,Medic,stomatologie,2750,3");
+
+
+        Persoana p1=cosmin;
+        Persoana p2=laur;
+
+
+        assertEquals(false, p1.equals(p2));
     }
 
     @Test
@@ -77,8 +82,8 @@ class ControlPersoaneTest {
     @Test
     public void testModify(){
 
-        cp.modifyClient(10,"Nedelcu Adrian", "decembrie18", 21, "Callatis 12", "87566645674567");
-        cp.modifyMedic(2, "Popa Claudia Gabriela", "parola", 48, "ortopedie", 4500, 21);
+        cp.modify(new Client(10,"Nedelcu Adrian", "decembrie18", 21,"Client","Callatis 12", "87566645674567"));
+        cp.modify(new Medic(2, "Popa Claudia Gabriela", "parola", 48, "Medic","ortopedie", 4500, 21));
         cp.traverse();
     }
 

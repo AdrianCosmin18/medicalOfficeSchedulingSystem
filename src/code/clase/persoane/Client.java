@@ -56,8 +56,6 @@ public class Client extends Persoana implements Comparable<Client> {
     @Override
     public boolean equals(Object o){//egalitate dupa nume
 
-        //Client c = (Client) o;
-        //return this.getNume().equals(c.getNume());
         Persoana p = (Persoana) o;
         return this.getId() == p.getId() && this.getNume().equals(p.getNume());
     }
@@ -96,6 +94,20 @@ public class Client extends Persoana implements Comparable<Client> {
         else{
 
             return 0;
+        }
+    }
+
+    @Override
+    public Client copy(Persoana p){
+
+        try{
+
+            Client c = (Client) p;
+            return new Client(c.getId(), c.getNume(), c.getParola(), c.getVarsta(), c.getTip(), adresa, telefon);
+        }catch (Exception e){
+
+            System.out.println("EROARE la copy");
+            return null;
         }
     }
 }

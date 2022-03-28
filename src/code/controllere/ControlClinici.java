@@ -1,11 +1,11 @@
-package code.controller;
+package code.controllere;
 
 import code.clase.clinica.Clinica;
-import code.clase.persoane.Persoana;
+import code.clase.persoane.Client;
 
 import java.util.ArrayList;
 
-public class ControlClinici implements Controler{
+public class ControlClinici implements Controler<Clinica>{
 
 
     private ArrayList<Clinica> clinici;
@@ -53,9 +53,8 @@ public class ControlClinici implements Controler{
     }
 
     @Override
-    public void add(Object o) {
+    public void add(Clinica c) {
 
-        Clinica c = (Clinica) o;
         if(!existsID(c.getId())){
 
             clinici.add(c);
@@ -66,9 +65,8 @@ public class ControlClinici implements Controler{
     }
 
     @Override
-    public int indexOf(Object o) {
+    public int indexOf(Clinica c) {
 
-        Clinica c = (Clinica) o;
         int index = -1;
         for(Clinica clinica : clinici){
 
@@ -81,10 +79,10 @@ public class ControlClinici implements Controler{
         return -1;
     }
 
-    //@Override
-    public void remove(Object o){
+    @Override
+    public void remove(Clinica c){
 
-        clinici.remove(indexOf((Clinica)o));
+        clinici.remove(indexOf(c));
     }
 
     public void remove(int index){
@@ -105,11 +103,11 @@ public class ControlClinici implements Controler{
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(Clinica c) {
 
-        for(Clinica c : clinici){
+        for(Clinica clinica : clinici){
 
-            if(c.equals((Clinica) o)){
+            if(c.equals(clinica)){
 
                 return true;
             }
@@ -156,19 +154,12 @@ public class ControlClinici implements Controler{
         return null;
     }
 
-    public void modify(int id, String nume, String oras, String adresa, ArrayList<String> specializari, ArrayList<Integer> mediciID){
+    public void modify(Clinica clinicaModif){
 
-        try{
+        if(existsID(clinicaModif.getId())){
 
-            Clinica clinica = getClinicaByID(id);
-            clinica.setNume(nume);
-            clinica.setOras(oras);
-            clinica.setAdresa(adresa);
-            clinica.setSpecializari(specializari);
-            clinica.setMediciID(mediciID);
-        }catch (Exception e){
-
-            System.out.println("EROARE la modificare clinica");
+            Clinica clinicaLista = getClinicaByID(clinicaModif.getId());
+            clinicaLista = clinicaLista.copy(clinicaModif);
         }
     }
 

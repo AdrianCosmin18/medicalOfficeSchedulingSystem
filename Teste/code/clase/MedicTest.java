@@ -60,4 +60,12 @@ class MedicTest {
         assertEquals(0, laur.compareTo(mihai));
     }
 
+    @Test
+    public void testCopy(){
+
+        Medic medic = new Medic();
+        medic = medic.copy(cosmin);
+        System.out.println(medic.describe());
+    }
+
 }

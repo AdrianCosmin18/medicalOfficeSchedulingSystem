@@ -20,17 +20,17 @@ class ClientTest {
         andrei = new Client(1, "Nedelcu Andrei", "acasa", 17, "Client", "Timisul de Jos 3", "051651651");
         anonim = new Client();
         cosmin2 = new Client();
-        cosmin2.setId(3);
-        cosmin2.setNume("Nedelcu Cosmin");
-        cosmin2.setParola("234523");
-        cosmin2.setVarsta(22);
+        //cosmin2.setId(3);
+        //cosmin2.setNume("Nedelcu Cosmin");
+        //cosmin2.setParola("234523");
+        //cosmin2.setVarsta(22);
     }
 
     @Test
     public void testEquals(){
 
         //assertEquals(false, cosmin.equals(andrei));
-        assertEquals(true, cosmin.equals(cosmin2));
+        assertEquals(true, anonim.equals(cosmin2));
     }
 
     @Test
@@ -38,7 +38,12 @@ class ClientTest {
 
 
         System.out.println(cosmin.compareTo(cosmin2));
+    }
 
+    @Test
+    public void testCopy(){
+
+        System.out.println(new Client().copy(cosmin).describe());
     }
 
 

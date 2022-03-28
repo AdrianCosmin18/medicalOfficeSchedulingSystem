@@ -1,4 +1,4 @@
-package code.controller;
+package code.controllere;
 
 import code.clase.clinica.Clinica;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,8 +76,9 @@ class ControlCliniciTest {
 
         ArrayList<Integer> list = new ArrayList<>();
         list.add(2);
-        controlClinici.modify(1,"medLife Favorit", "Bucuresti", "Drumul Taberei 24", lista, list);
+        list.add(7);
 
+        controlClinici.modify(new Clinica(0,"medLife Favorit", "Bucuresti", "Drumul Taberei 24", lista, list));
         controlClinici.traverse();
     }
 

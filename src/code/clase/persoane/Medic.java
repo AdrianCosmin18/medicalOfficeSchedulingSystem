@@ -88,10 +88,10 @@ public class Medic extends Persoana implements Comparable<Medic>{
     @Override
     public boolean equals(Object o){//dupa specializare si ID
 
-        //Medic m = (Medic) o;
-        //return m.specializare.equals(this.specializare) && m.getId() ==
-        Persoana p = (Persoana) o;
-        return this.getId() == p.getId() && this.getNume().equals(p.getNume());
+        Medic m = (Medic) o;
+        return m.specializare.equals(this.specializare) && m.getId() == this.getId();
+//        Persoana p = (Persoana) o;
+//        return this.getId() == p.getId() && this.getNume().equals(p.getNume());
     }
 
     @Override
@@ -108,6 +108,20 @@ public class Medic extends Persoana implements Comparable<Medic>{
         else{
 
             return 0;
+        }
+    }
+
+    @Override
+    public Medic copy(Persoana p) {
+
+        try {
+            Medic m = (Medic) p;
+            return new Medic(m.getId(), m.getNume(), m.getParola(), m.getVarsta(), m.getTip(), m.specializare, m.salariu, m.experienta);
+
+        } catch (Exception e) {
+
+            System.out.println("EROARE la copiere");
+            return null;
         }
     }
 }

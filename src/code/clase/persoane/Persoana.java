@@ -69,6 +69,15 @@ public abstract class Persoana {
         this.tip = "Persoana";
     }
 
+    @Override
+    public boolean equals(Object o){
+
+        Persoana p = (Persoana) o;
+        return this.getId() == p.getId() && this.getNume().equals(p.getNume());
+    }
+
+    public abstract Persoana copy(Persoana p);
+
     public abstract String describe();
 
 }

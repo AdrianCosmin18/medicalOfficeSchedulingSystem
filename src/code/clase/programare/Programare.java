@@ -8,7 +8,7 @@ public class Programare {
     private int idClient;
     private int idMedic;
     private int idClinica;
-    private Data data;
+    private Data data;//dd mm yyyy hh mm
 
     public int getId() {
         return id;
@@ -52,6 +52,7 @@ public class Programare {
 
 
     public Programare(int id, int idClient, int idMedic, int idClinica, Data data) {
+        
         this.id = id;
         this.idClient = idClient;
         this.idMedic = idMedic;
@@ -116,5 +117,10 @@ public class Programare {
         text += "\n" + data;
 
         return text;
+    }
+
+    public Programare copy(Programare p){
+
+        return new Programare(p.getId(), p.getIdClient(), p.getIdMedic(), p.getIdClinica(), p.getData());
     }
 }

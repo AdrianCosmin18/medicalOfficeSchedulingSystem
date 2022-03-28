@@ -1,4 +1,4 @@
-package code.controller;
+package code.controllere;
 
 import code.clase.persoane.Client;
 import code.clase.persoane.Medic;
@@ -6,7 +6,7 @@ import code.clase.persoane.Persoana;
 
 import java.util.ArrayList;
 
-public class ControlPersoane implements Controler{
+public class ControlPersoane implements Controler<Persoana>{
 
     private ArrayList<Persoana> persoane;
 
@@ -14,7 +14,7 @@ public class ControlPersoane implements Controler{
     public void load() {
 
         Medic m1 = new Medic("1,Nedelcu Andrei,1234,18,Medic,cardiologie,2500,2");
-        Medic m2 = new Medic("2,Nedelcu Clauida,1234,47,Medic,pediatrie,3800,20");
+        Medic m2 = new Medic("2,Nedelcu Claudia,1234,47,Medic,pediatrie,3800,20");
         Medic m3 = new Medic("3,Laurentiu,1234,26,Medic,stomatologie,2750,3");
         Medic m4 = new Medic("4,Gral Mihai,4567,33,Medic,ortopedie,3200,6");
         Medic m5 = new Medic("5,Muzulescu Andrei,parola,35,Medic,dermatologie,2500,3");//
@@ -70,9 +70,8 @@ public class ControlPersoane implements Controler{
     }
 
     @Override
-    public void add(Object o) {
+    public void add(Persoana p) {
 
-        Persoana p = (Persoana) o;
         if(!existsID(p.getId())){
 
             persoane.add(p);
@@ -83,14 +82,13 @@ public class ControlPersoane implements Controler{
     }
 
     @Override
-    public int indexOf(Object o) {
+    public int indexOf(Persoana p) {
 
-        Persoana persoana = (Persoana) o;
         int index = -1;
-        for(Persoana p : persoane){
+        for(Persoana itr : persoane){
 
             index++;
-            if(p.equals(persoana)){
+            if(p.equals(itr)){
 
                 return index;
             }
@@ -98,16 +96,16 @@ public class ControlPersoane implements Controler{
         return -1;
     }
 
-    //@Override
+    @Override
     public void remove(int index) {
 
         persoane.remove(index);
     }
 
-    //@Override
-    public void remove(Object o){
+    @Override
+    public void remove(Persoana p){
 
-        persoane.remove(indexOf(o));
+        persoane.remove(indexOf(p));
     }
 
     @Override
@@ -123,11 +121,11 @@ public class ControlPersoane implements Controler{
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(Persoana p) {
 
-        for(Persoana p : persoane){
+        for(Persoana persoana : persoane){
 
-            if(p.equals((Persoana) o)){
+            if(p.equals(persoana)){
 
                 return true;
             }
@@ -174,44 +172,66 @@ public class ControlPersoane implements Controler{
         return null;
     }
 
-    //@Override
-    public void modifyClient(int id, String nume, String parola, int varsta, String adresa, String telefon) {
 
-        Persoana pers = getPersoanaByID(id);
 
-        try{
+    @Override
+    public void modify(Persoana persoanaModificata){
 
-            Client client = (Client) pers;
-            client.setNume(nume);
-            client.setParola(parola);
-            client.setVarsta(varsta);
-            client.setAdresa(adresa);
-            client.setTelefon(telefon);
-        }catch (Exception e){
+        if(existsID(persoanaModificata.getId())){
 
-            System.out.println("EROARE!");
+            Persoana persoanaDinLista = getPersoanaByID(persoanaModificata.getId());
+            if(persoanaModificata instanceof Medic){
+
+                Medic medicModif = (Medic) persoanaModificata;
+                Medic medicLista = (Medic) persoanaDinLista;
+                medicLista = medicLista.copy(medicModif);
+            }
+            else if(persoanaModificata instanceof Client){
+
+                Client clientModif = (Client) persoanaModificata;
+                Client clientLista = (Client) persoanaDinLista;
+                clientLista = clientLista.copy(clientModif);
+            }
         }
     }
 
-    public void modifyMedic(int id, String nume, String parola, int varsta, String specializare, double salariu, int xp){
-
-        Persoana pers = getPersoanaByID(id);
-
-        try{
-
-            Medic medic = (Medic) pers;
-            medic.setParola(parola);
-            medic.setNume(nume);
-            medic.setVarsta(varsta);
-            medic.setExperienta(xp);
-            medic.setSalariu(salariu);
-            medic.setSpecializare(specializare);
-
-        }catch (Exception e){
-
-            System.out.println("EROARE!");
-        }
-    }
+//    public void modifyClient(int id, String nume, String parola, int varsta, String adresa, String telefon) {
+//
+//        Persoana pers = getPersoanaByID(id);
+//
+//        try{
+//
+//            Client client = (Client) pers;
+//            client.setNume(nume);
+//            client.setParola(parola);
+//            client.setVarsta(varsta);
+//            client.setAdresa(adresa);
+//            client.setTelefon(telefon);
+//        }catch (Exception e){
+//
+//            System.out.println("EROARE!");
+//        }
+//    }
+//
+//    public void modifyMedic(int id, String nume, String parola, int varsta, String specializare, double salariu, int xp){
+//
+//        Persoana pers = getPersoanaByID(id);
+//
+//        try{
+//
+//            Medic medic = (Medic) pers;
+//            medic.setParola(parola);
+//            medic.setNume(nume);
+//            medic.setVarsta(varsta);
+//            medic.setExperienta(xp);
+//            medic.setSalariu(salariu);
+//            medic.setSpecializare(specializare);
+//
+//        }catch (Exception e){
+//
+//            System.out.println("EROARE!");
+//        }
+//    }
 
     public Persoana getPersonByNameAndPassword(String name, String password){
 
