@@ -98,16 +98,22 @@ public class Client extends Persoana implements Comparable<Client> {
     }
 
     @Override
-    public Client copy(Persoana p){
+    public void copy(Persoana p){
 
         try{
 
             Client c = (Client) p;
-            return new Client(c.getId(), c.getNume(), c.getParola(), c.getVarsta(), c.getTip(), adresa, telefon);
+            this.setNume(c.getNume());
+            this.setVarsta(c.getVarsta());
+            this.setParola(c.getParola());
+            this.setTip(c.getTip());
+            this.adresa = c.adresa;
+            this.telefon = c.telefon;
+            //return new Client(c.getId(), c.getNume(), c.getParola(), c.getVarsta(), c.getTip(), adresa, telefon);
         }catch (Exception e){
 
             System.out.println("EROARE la copy");
-            return null;
+            //return null;
         }
     }
 }

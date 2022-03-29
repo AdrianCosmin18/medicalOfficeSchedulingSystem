@@ -102,9 +102,9 @@ public class Programare {
     }
 
     @Override
-    public boolean equals(Object o){//egalitate daca eu acelasi client
+    public boolean equals(Object o){//egalitate daca eu acelasi ID
 
-        return this.idClient == ((Programare) o).idClient;
+        return this.id == ((Programare) o).id;
     }
 
     public String describe(){
@@ -119,8 +119,12 @@ public class Programare {
         return text;
     }
 
-    public Programare copy(Programare p){
+    public void copy(Programare p){
 
-        return new Programare(p.getId(), p.getIdClient(), p.getIdMedic(), p.getIdClinica(), p.getData());
+        //return new Programare(p.getId(), p.getIdClient(), p.getIdMedic(), p.getIdClinica(), p.getData());
+        this.setIdClient(p.getIdClient());
+        this.setIdClinica(p.getIdClinica());
+        this.setIdMedic(p.getIdMedic());
+        this.setData(p.getData());
     }
 }

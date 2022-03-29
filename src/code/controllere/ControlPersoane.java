@@ -10,6 +10,8 @@ public class ControlPersoane implements Controler<Persoana>{
 
     private ArrayList<Persoana> persoane;
 
+    public ArrayList<Persoana> getPersoane(){return persoane;}
+
     @Override
     public void load() {
 
@@ -160,7 +162,7 @@ public class ControlPersoane implements Controler<Persoana>{
         return -1;
     }
 
-    Persoana getPersoanaByID(int id){
+    public Persoana getPersoanaByID(int id){
 
         for(Persoana p : persoane){
 
@@ -173,7 +175,6 @@ public class ControlPersoane implements Controler<Persoana>{
     }
 
 
-
     @Override
     public void modify(Persoana persoanaModificata){
 
@@ -184,13 +185,13 @@ public class ControlPersoane implements Controler<Persoana>{
 
                 Medic medicModif = (Medic) persoanaModificata;
                 Medic medicLista = (Medic) persoanaDinLista;
-                medicLista = medicLista.copy(medicModif);
+                medicLista.copy(medicModif);
             }
             else if(persoanaModificata instanceof Client){
 
                 Client clientModif = (Client) persoanaModificata;
                 Client clientLista = (Client) persoanaDinLista;
-                clientLista = clientLista.copy(clientModif);
+                clientLista.copy(clientModif);
             }
         }
     }

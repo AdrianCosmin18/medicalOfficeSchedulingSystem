@@ -64,7 +64,7 @@ class MedicTest {
     public void testCopy(){
 
         Medic medic = new Medic();
-        medic = medic.copy(cosmin);
+        medic.copy(cosmin);
         System.out.println(medic.describe());
     }
 

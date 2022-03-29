@@ -43,7 +43,7 @@ class ClientTest {
     @Test
     public void testCopy(){
 
-        System.out.println(new Client().copy(cosmin).describe());
+        System.out.println();
     }
 
 

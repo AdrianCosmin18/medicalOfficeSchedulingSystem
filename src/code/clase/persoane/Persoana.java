@@ -76,7 +76,7 @@ public abstract class Persoana {
         return this.getId() == p.getId() && this.getNume().equals(p.getNume());
     }
 
-    public abstract Persoana copy(Persoana p);
+    public abstract void copy(Persoana p);
 
     public abstract String describe();
 

@@ -10,6 +10,10 @@ public class ControlClinici implements Controler<Clinica>{
 
     private ArrayList<Clinica> clinici;
 
+    public ArrayList<Clinica> getClinici() {
+        return clinici;
+    }
+
     public ControlClinici(){
 
         clinici = new ArrayList<>();
@@ -19,10 +23,11 @@ public class ControlClinici implements Controler<Clinica>{
     @Override
     public void load() {
 
-        Clinica c1 = new Clinica("0,Hyperclinica MedLife Favorit,Bucuresti,Drumul Taberei 24,stomatologie,ortopedie,cardiologie", "9,8,7");
-        Clinica c2 = new Clinica("1,Hyperclinica MedLife PDR Turnului Brasov,Brasov,Strada Turnului 5,nutritie,dermatologie","6,5");
-        Clinica c3 = new Clinica("2,Hyperclinica MedLife Cluj,Cluj,Calea Moților 32,cardiologie,pediatrie","1,2");
-        Clinica c4 = new Clinica("3,Hyperclinica MedLife Unirii,Bucuresti,Strada Hans Cristian Andersen 1,stomatologie,ortopedie","3,4");
+        //Clinica c1 = new Clinica("0,Hyperclinica MedLife Favorit,Bucuresti,Drumul Taberei 24,stomatologie,ortopedie,cardiologie", "9,8,7");
+        Clinica c1 = new Clinica("1,Hyperclinica MedLife PDR Turnului Brasov,Brasov,Strada Turnului 5,nutritie,dermatologie","6,5");
+        Clinica c2 = new Clinica("2,Hyperclinica MedLife Cluj,Cluj,Calea Moților 32,cardiologie,pediatrie","1,2");
+        Clinica c3 = new Clinica("3,Hyperclinica MedLife Unirii,Bucuresti,Strada Hans Cristian Andersen 1,stomatologie,ortopedie","3,4");
+        Clinica c4 = new Clinica("4,Hyperclinica MedLife Favorit,Bucuresti,Drumul Taberei 24,stomatologie,ortopedie,cardiologie", "9,8,7");
 
         clinici.add(c1);
         clinici.add(c2);
@@ -159,7 +164,7 @@ public class ControlClinici implements Controler<Clinica>{
         if(existsID(clinicaModif.getId())){
 
             Clinica clinicaLista = getClinicaByID(clinicaModif.getId());
-            clinicaLista = clinicaLista.copy(clinicaModif);
+            clinicaLista.copy(clinicaModif);
         }
     }
 

@@ -73,7 +73,7 @@ class ClinicaTest {
     public void testCopy(){
 
         Clinica clinica = new Clinica();
-        clinica = clinica.copy(clinica2);
+        clinica.copy(clinica2);
         System.out.println(clinica.describe());
     }
 

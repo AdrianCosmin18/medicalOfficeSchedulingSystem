@@ -78,7 +78,7 @@ class ControlCliniciTest {
         list.add(2);
         list.add(7);
 
-        controlClinici.modify(new Clinica(0,"medLife Favorit", "Bucuresti", "Drumul Taberei 24", lista, list));
+        controlClinici.modify(new Clinica(-1,"medLife Favorit", "Bucuresti", "Drumul Taberei 24", lista, list));
         controlClinici.traverse();
     }
 

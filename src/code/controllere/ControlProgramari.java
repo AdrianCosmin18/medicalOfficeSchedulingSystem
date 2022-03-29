@@ -40,6 +40,7 @@ public class ControlProgramari implements Controler<Programare>{
         for(Programare p : programari){
 
             System.out.println(p.describe());
+            System.out.println();
         }
     }
 
@@ -146,7 +147,7 @@ public class ControlProgramari implements Controler<Programare>{
         if(existsID(programare.getId())){
 
             Programare programareLista = getProgramareByID(programare.getId());
-            programareLista = programareLista.copy(programare);
+            programareLista.copy(programare);
         }
     }
 

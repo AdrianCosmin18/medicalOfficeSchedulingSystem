@@ -112,16 +112,23 @@ public class Medic extends Persoana implements Comparable<Medic>{
     }
 
     @Override
-    public Medic copy(Persoana p) {
+    public void copy(Persoana p) {
 
         try {
             Medic m = (Medic) p;
-            return new Medic(m.getId(), m.getNume(), m.getParola(), m.getVarsta(), m.getTip(), m.specializare, m.salariu, m.experienta);
+            this.setNume(m.getNume());
+            this.setVarsta(m.getVarsta());
+            this.setParola(m.getParola());
+            this.setTip(m.getTip());
+            this.specializare = m.specializare;
+            this.salariu = m.salariu;
+            this.experienta = m.experienta;
+            //return new Medic(m.getId(), m.getNume(), m.getParola(), m.getVarsta(), m.getTip(), m.specializare, m.salariu, m.experienta);
 
         } catch (Exception e) {
 
             System.out.println("EROARE la copiere");
-            return null;
+            //return null;
         }
     }
 }
