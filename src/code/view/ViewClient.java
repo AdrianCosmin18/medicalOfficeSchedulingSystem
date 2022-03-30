@@ -1,13 +1,16 @@
 package code.view;
 
 import code.clase.clinica.Clinica;
+import code.clase.data.Data;
 import code.clase.persoane.Client;
 import code.clase.persoane.Medic;
 import code.clase.persoane.Persoana;
+import code.clase.programare.Programare;
 import code.controllere.ControlClinici;
 import code.controllere.ControlPersoane;
 import code.controllere.ControlProgramari;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -40,12 +43,14 @@ public class ViewClient implements View{
         System.out.println("======================================");
         System.out.println("1. Lista tuturor clinicilor MedLife cu informatii");
         System.out.println("2. Informatii suplimentare despre o anumita clinica");//afiseaza describe-ul clincii dar si informatii depsre medici in acelasi timp
-        System.out.println("3. Afla adresa unei anumite clinici");
-        System.out.println("4. Lista tuturor medicilor");
-        System.out.println("5. Inregistreaza o programare");
-        System.out.println("6. Istoricul programarilor mele");
-        System.out.println("7. Modifica data unei programari");
-        System.out.println("8. Iesire");
+        System.out.println("3. Afla lista specializarilor unei clinici");
+        System.out.println("4. Afla adresa unei anumite clinici");
+        System.out.println("5. Lista tuturor medicilor");
+        System.out.println("6. Inregistreaza o programare");
+        System.out.println("7. Istoricul programarilor mele");
+        System.out.println("8. Modifica data unei programari");
+        System.out.println("9. Stergeti o programare");
+        System.out.println("10. Iesire");
     }
 
     @Override
@@ -68,22 +73,36 @@ public class ViewClient implements View{
                 case 2: infoAnumitaClinica();
                 break;
 
-                case 3 : adresaClinica();
+                case 3: listaSpecializari();
                 break;
 
-                case 4 : listaMedici();
+                case 4 : adresaClinica();
                 break;
 
-                case 8: run = false;
+                case 5 : listaMedici();
+                break;
+
+                case 6: inregistreazaProgramare();
+                break;
+
+                case 7:istoricProgramari();
+                break;
+
+                case 8: modificaDataProgramare();
+                break;
+
+                case 9: stergeProgramare();
+                break;
+
+                case 10: run = false;
                 break;
             }
         }
     }
 
-    //Eroare: face sortare dar mai trebuie verificat !!!!!!!!!!!!!!!!!!!
     public void listaClinici(){
 
-        System.out.print("Doriti afisate clinicile in ordine descrescatoare dupa numarul de specializari (da/nu) : ");
+        System.out.print("Doriti afisate clinicile in ordine crescatoare dupa numarul de specializari (da/nu) : ");
         String alegere;
         alegere = read.nextLine();
 
@@ -144,6 +163,22 @@ public class ViewClient implements View{
         }
     }
 
+    public void listaSpecializari(){
+
+        System.out.print("Introdu ID-ul clinicii : ");
+        int id = Integer.parseInt(read.nextLine());
+
+        if(controlClinici.existsID(id)){
+
+            ArrayList<String> specializari = controlClinici.getClinicaByID(id).getSpecializari();
+            System.out.println("Clinica : " + controlClinici.getClinicaByID(id).getNume() + " are specializarile : ");
+            for(String s:specializari){
+
+                System.out.println(s);
+            }
+        }
+    }
+
     public void listaMedici(){
 
         System.out.print("Doriti afisati medici in ordine crescatoare dupa numarul de ani de experienta ai acestora (da/nu) : ");
@@ -171,6 +206,116 @@ public class ViewClient implements View{
 
             System.out.println(m.describe());
             System.out.println();
+        }
+    }
+
+    //nu merge add si nu stiu cum moodific data de sfarsit!!!!!
+    public void inregistreazaProgramare(){
+
+        System.out.println("Introduce ID-ul clinicii in care doriti sa va programati :");
+        int idClinica = Integer.parseInt(read.nextLine());
+
+        if(controlClinici.existsID(idClinica)){//verif daca exista clinica
+
+            Clinica clinica = controlClinici.getClinicaByID(idClinica);
+
+            System.out.println("Clinica : " + clinica.getNume() + " are specializarile : ");//afis specializ clinicii
+            for(String s: clinica.getSpecializari()){
+
+                System.out.println(s);
+            }
+
+            System.out.print("Introdcueti specializarea la care doriti sa va programati : ");
+            String specializare = read.nextLine();
+
+            if(clinica.existaSpecializare(specializare)){//verif dc clinica are specializarea introdusa
+
+                int medicID;
+                ArrayList<Integer> mediciID = clinica.getMediciID();//obt id-ul medicului pt a inregistra programarea
+                for(Integer id: mediciID) {
+
+                    Medic m = (Medic) controlPersoane.getPersoanaByID(id);
+                    if(m.getSpecializare().equals(specializare)){
+
+                        medicID = m.getId();
+                    }
+                }
+
+                System.out.println("Introdu noua data la care vrei sa te programezi");
+                System.out.println("Exemplu introducere data : 18,12,2022,16,30 = 18 dec 2022 la ora 16:30");
+                System.out.print("Data :");
+                String startData = read.nextLine();
+                String stopData = startData;
+
+                //controlProgramari.add(new Programare(controlProgramari.getNextAvailableID(), this.client.getId(), medicID, clinica.getId(), new Data(startData,startData)));
+
+            }
+            else{
+
+                System.out.println("Nu exista aceasta specializare in aceasta clinica");
+            }
+        }
+        else{
+
+            System.out.println("Nu exista o clinica cu acest ID");
+        }
+    }
+
+    public void istoricProgramari(){
+
+        System.out.println("Istoricul meu :");
+        ArrayList<Programare> programari = controlProgramari.getListaByClientID(client.getId());
+
+        int count = 0;
+        for(Programare p: programari){
+
+            count++;
+            System.out.println("Programarea : " + count);
+            System.out.println("ID: " + p.getId());
+            System.out.println("Clinica: " + controlClinici.getClinicaByID(p.getIdClinica()).getNume());
+            System.out.println("Specializarea: " + ((Medic) controlPersoane.getPersoanaByID(p.getIdMedic())).getSpecializare());
+            System.out.println(p.getData());
+            System.out.println();
+        }
+    }
+
+    //nu stiu cum moodific data de sfarsit!!!!!
+    public void modificaDataProgramare(){
+
+        System.out.println("Introduce data la care esti programat");
+        System.out.println("Exemplu introducere data : 18,12,2022,16,30 = 18 dec 2022 la ora 16:30");
+        System.out.print("Data :");
+        String dataInceput = read.nextLine();
+        Data data = new Data(dataInceput, dataInceput);
+
+        System.out.println("Introdu noua data la care vrei sa te programezi");
+        System.out.println("Exemplu introducere data : 18,12,2022,16,30 = 18 dec 2022 la ora 16:30");
+        System.out.print("Data :");
+        String nouaDataInceput = read.nextLine();
+        Data nouaData = new Data(nouaDataInceput, nouaDataInceput);
+
+        ArrayList<Programare> programari = controlProgramari.getListaByClientID(client.getId());
+        for(Programare p: programari){
+
+            if(p.getData().getDataInceput().equals(data.getDataInceput())){
+
+                p.setData(nouaData);
+            }
+        }
+    }
+
+    public void stergeProgramare(){
+
+        System.out.print("Introduce ID-ul programarii pe care vrei sa o stergi : ");
+        int id = Integer.parseInt(read.nextLine());
+
+        if(controlProgramari.existsID(id)){
+
+            controlProgramari.remove(controlProgramari.indexOf(controlProgramari.getProgramareByID(id)));
+            System.out.println("Stergerea programarii a fost realizata cu succes !!!");
+        }
+        else{
+            System.out.println("Nu exista o programare cu acest ID !!!");
         }
     }
 }

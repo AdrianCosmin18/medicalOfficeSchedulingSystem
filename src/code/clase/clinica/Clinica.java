@@ -202,4 +202,17 @@ public class Clinica implements Comparable<Clinica>{
         this.setSpecializari(c.getSpecializari());
         this.setAdresa(c.getAdresa());
     }
+
+    public boolean existaSpecializare(String specializare){
+
+        for(String s:specializari){
+
+            if(s.equals(specializare)){
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

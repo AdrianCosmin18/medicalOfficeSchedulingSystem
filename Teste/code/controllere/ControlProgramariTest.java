@@ -5,6 +5,8 @@ import code.clase.programare.Programare;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControlProgramariTest {
@@ -87,6 +89,17 @@ class ControlProgramariTest {
 
         controlProgramari.modify(new Programare(3,3,3,3,new Data("30,03,2022,10,00","30,03,2022,11,00")));
         controlProgramari.traverse();
+    }
+
+    @Test
+    public void testGetListaByClientID(){
+
+        ArrayList<Programare> list = controlProgramari.getListaByClientID(12);
+        for(Programare p : list){
+
+            System.out.println(p.describe());
+            System.out.println();
+        }
     }
 
 }

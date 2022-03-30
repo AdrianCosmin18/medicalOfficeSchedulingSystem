@@ -24,10 +24,11 @@ public class ControlPersoane implements Controler<Persoana>{
         Medic m7 = new Medic("7,Dos Santos Aveiro,1234,37,Medic,cardiologie,2600,10");//
         Medic m8 = new Medic("8,Leo Alex,123456,40,Medic,ortopedie,5000,15");//
         Medic m9 = new Medic("9,Anne,12345,30,Medic,stomatologie,2000,6");//
+        Medic m10 = new Medic("10,Vlad Mihai,prolaVlad,33,Medic,nutritie,3000,7");
 
-        Client cosmin = new Client("10,Nedelcu Cosmin,12345,22,Client,Timisul de Jos 3,0773941106");
-        Client ioan = new Client("11,Nedelcu Ioan,12345,53,Client,Callatis 12,0773941080");
-        Client andrei = new Client("12,Mircea Andrei,12345,18,Client,Callatis 12,0789345123");
+        Client cosmin = new Client("11,Nedelcu Cosmin,12345,22,Client,Timisul de Jos 3,0773941106");
+        Client ioan = new Client("12,Nedelcu Ioan,12345,53,Client,Callatis 12,0773941080");
+        Client andrei = new Client("13,Mircea Andrei,12345,18,Client,Callatis 12,0789345123");
 
         persoane.add(m1);
         persoane.add(m2);

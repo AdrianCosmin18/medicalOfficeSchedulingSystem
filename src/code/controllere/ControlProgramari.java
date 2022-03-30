@@ -151,4 +151,18 @@ public class ControlProgramari implements Controler<Programare>{
         }
     }
 
+    public ArrayList<Programare> getListaByClientID(int id){
+
+        ArrayList<Programare> list = new ArrayList<>();
+
+        for(Programare programare: programari){
+
+            if(programare.getIdClient() == id){
+
+                list.add(programare);
+            }
+        }
+        return list;
+    }
+
 }

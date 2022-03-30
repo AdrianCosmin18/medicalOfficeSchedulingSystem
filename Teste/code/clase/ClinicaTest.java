@@ -77,4 +77,10 @@ class ClinicaTest {
         System.out.println(clinica.describe());
     }
 
+    @Test
+    public void testExistaSpecializari(){
+
+        assertEquals(false, clinica2.existaSpecializare("stomatologi"));
+    }
+
 }
