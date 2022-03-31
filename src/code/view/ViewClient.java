@@ -14,6 +14,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class ViewClient implements View{
 
@@ -47,7 +48,7 @@ public class ViewClient implements View{
         System.out.println("4. Afla adresa unei anumite clinici");
         System.out.println("5. Lista tuturor medicilor");
         System.out.println("6. Inregistreaza o programare");
-        System.out.println("7. Istoricul programarilor mele");
+        System.out.println("7. Toate programarilor mele");
         System.out.println("8. Modifica data unei programari");
         System.out.println("9. Stergeti o programare");
         System.out.println("10. Iesire");
@@ -186,7 +187,7 @@ public class ViewClient implements View{
         alegere = read.nextLine();
 
 
-        ArrayList<Persoana> persoane = controlPersoane.getPersoane();
+        Vector<Persoana> persoane = controlPersoane.getPersoane();
         ArrayList<Medic> medici = new ArrayList<>();
 
         for(Persoana p : persoane){
@@ -209,7 +210,7 @@ public class ViewClient implements View{
         }
     }
 
-    //nu merge add si nu stiu cum moodific data de sfarsit!!!!!
+    //modificare data de sfarsit trebuie implementat!!!!!
     public void inregistreazaProgramare(){
 
         System.out.println("Introduce ID-ul clinicii in care doriti sa va programati :");
@@ -230,7 +231,7 @@ public class ViewClient implements View{
 
             if(clinica.existaSpecializare(specializare)){//verif dc clinica are specializarea introdusa
 
-                int medicID;
+                int medicID = -1;
                 ArrayList<Integer> mediciID = clinica.getMediciID();//obt id-ul medicului pt a inregistra programarea
                 for(Integer id: mediciID) {
 
@@ -242,12 +243,13 @@ public class ViewClient implements View{
                 }
 
                 System.out.println("Introdu noua data la care vrei sa te programezi");
-                System.out.println("Exemplu introducere data : 18,12,2022,16,30 = 18 dec 2022 la ora 16:30");
+                System.out.println("Exemplu introducere data : '18,12,2022,16,30' ceea ce inseamna 18 dec 2022 la ora 16:30");
                 System.out.print("Data :");
                 String startData = read.nextLine();
                 String stopData = startData;
 
-                //controlProgramari.add(new Programare(controlProgramari.getNextAvailableID(), this.client.getId(), medicID, clinica.getId(), new Data(startData,startData)));
+                controlProgramari.add(new Programare(controlProgramari.getNextAvailableID(), this.client.getId(), medicID, clinica.getId(), new Data(startData,startData)));
+                System.out.println("Inregistrare realizata cu succes !!!");
 
             }
             else{
@@ -279,7 +281,7 @@ public class ViewClient implements View{
         }
     }
 
-    //nu stiu cum moodific data de sfarsit!!!!!
+    //modificare data de sfarsit!!!!!
     public void modificaDataProgramare(){
 
         System.out.println("Introduce data la care esti programat");
@@ -300,6 +302,8 @@ public class ViewClient implements View{
             if(p.getData().getDataInceput().equals(data.getDataInceput())){
 
                 p.setData(nouaData);
+                System.out.println("Data modificata cu succes !!!");
+                break;
             }
         }
     }
