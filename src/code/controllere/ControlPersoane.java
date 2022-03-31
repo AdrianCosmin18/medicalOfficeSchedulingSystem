@@ -5,12 +5,14 @@ import code.clase.persoane.Medic;
 import code.clase.persoane.Persoana;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class ControlPersoane implements Controler<Persoana>{
 
-    private ArrayList<Persoana> persoane;
+    //private ArrayList<Persoana> persoane;
+    private Vector<Persoana> persoane;
 
-    public ArrayList<Persoana> getPersoane(){return persoane;}
+    public Vector<Persoana> getPersoane(){return persoane;}
 
     @Override
     public void load() {
@@ -55,7 +57,7 @@ public class ControlPersoane implements Controler<Persoana>{
 
     public ControlPersoane(){
 
-        persoane = new ArrayList<>();
+        persoane = new Vector<>();
         load();
     }
 
