@@ -26,6 +26,12 @@ public class Data {
         this.dataSfarsit = LocalDateTime.of(yys, mms, dds, hhs, mins);
     }
 
+    public Data(LocalDateTime dataInceput, LocalDateTime dataSfarsit){
+
+        this.dataInceput = dataInceput;
+        this.dataSfarsit = dataSfarsit;
+    }
+
     public Duration getDurata(){
         return Duration.between(dataInceput, dataSfarsit);
     }
@@ -58,4 +64,8 @@ public class Data {
 
         return  text;
     }
+
+
+
+
 }

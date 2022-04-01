@@ -9,12 +9,16 @@ import code.clase.programare.Programare;
 import code.controllere.ControlClinici;
 import code.controllere.ControlPersoane;
 import code.controllere.ControlProgramari;
+import static code.clase.Util.*;
 
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.Vector;
+
+
 
 public class ViewClient implements View{
 
@@ -210,7 +214,6 @@ public class ViewClient implements View{
         }
     }
 
-    //modificare data de sfarsit trebuie implementat!!!!!
     public void inregistreazaProgramare(){
 
         System.out.println("Introduce ID-ul clinicii in care doriti sa va programati :");
@@ -244,11 +247,14 @@ public class ViewClient implements View{
 
                 System.out.println("Introdu noua data la care vrei sa te programezi");
                 System.out.println("Exemplu introducere data : '18,12,2022,16,30' ceea ce inseamna 18 dec 2022 la ora 16:30");
-                System.out.print("Data :");
+                System.out.print("Data : ");
                 String startData = read.nextLine();
-                String stopData = startData;
 
-                controlProgramari.add(new Programare(controlProgramari.getNextAvailableID(), this.client.getId(), medicID, clinica.getId(), new Data(startData,startData)));
+                LocalDateTime localDateTimeStart = stringToLocalDateTime(startData);
+                LocalDateTime localDateTimeStop = localDateTimeStart.plusHours(1);
+
+
+                controlProgramari.add(new Programare(controlProgramari.getNextAvailableID(), this.client.getId(), medicID, clinica.getId(), new Data(localDateTimeStart, localDateTimeStop)));
                 System.out.println("Inregistrare realizata cu succes !!!");
 
             }
@@ -281,7 +287,6 @@ public class ViewClient implements View{
         }
     }
 
-    //modificare data de sfarsit!!!!!
     public void modificaDataProgramare(){
 
         System.out.println("Introduce data la care esti programat");
@@ -294,7 +299,11 @@ public class ViewClient implements View{
         System.out.println("Exemplu introducere data : 18,12,2022,16,30 = 18 dec 2022 la ora 16:30");
         System.out.print("Data :");
         String nouaDataInceput = read.nextLine();
-        Data nouaData = new Data(nouaDataInceput, nouaDataInceput);
+
+        LocalDateTime localDateTimeStart = stringToLocalDateTime(nouaDataInceput);
+        LocalDateTime localDateTimeStop = localDateTimeStart.plusHours(1);
+
+        Data nouaData = new Data(localDateTimeStart, localDateTimeStop);
 
         ArrayList<Programare> programari = controlProgramari.getListaByClientID(client.getId());
         for(Programare p: programari){
