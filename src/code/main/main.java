@@ -2,6 +2,7 @@ package code.main;
 
 import code.clase.persoane.Client;
 import code.controllere.ControlPersoane;
+import code.view.View;
 import code.view.ViewClient;
 
 public class main {

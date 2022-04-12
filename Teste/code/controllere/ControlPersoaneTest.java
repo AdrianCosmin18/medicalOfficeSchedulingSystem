@@ -104,4 +104,10 @@ class ControlPersoaneTest {
 
         assertEquals(true, new Medic("1,Nedelcu Andrei,1234,18,Medic,cardiologie,2500,2").equals(cp.getPersonByNameAndPassword("Nedelcu Andrei", "1234")));
     }
+
+    @Test
+    public void testSaveToFile(){
+
+        cp.saveToFile();
+    }
 }

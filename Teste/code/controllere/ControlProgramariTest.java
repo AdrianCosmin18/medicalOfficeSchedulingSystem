@@ -102,4 +102,10 @@ class ControlProgramariTest {
         }
     }
 
+    @Test
+    public void testSaveToFile(){
+
+        controlProgramari.saveToFile();
+    }
+
 }

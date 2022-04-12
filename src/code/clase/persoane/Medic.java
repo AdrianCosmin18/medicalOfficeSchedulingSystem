@@ -80,7 +80,7 @@ public class Medic extends Persoana implements Comparable<Medic>{
         text += "\nVarsta : " + this.getVarsta();
         text += "\nTip : " + this.getTip();
         text += "\nSpecializare : " + this.specializare;
-        text += "\nExperienta : " + getExperienta() + " ani";
+        text += "\nExperienta : " + this.experienta + " ani";
 
         return text;
     }

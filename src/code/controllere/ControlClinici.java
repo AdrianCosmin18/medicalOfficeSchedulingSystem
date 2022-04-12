@@ -2,8 +2,14 @@ package code.controllere;
 
 import code.clase.clinica.Clinica;
 import code.clase.persoane.Client;
+import code.clase.persoane.Persoana;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class ControlClinici implements Controler<Clinica>{
 
@@ -23,15 +29,25 @@ public class ControlClinici implements Controler<Clinica>{
     @Override
     public void load() {
 
-        Clinica c1 = new Clinica("1,Hyperclinica MedLife PDR Turnului Brasov,Brasov,Strada Turnului 5,nutritie,dermatologie","6,5");
-        Clinica c2 = new Clinica("2,Hyperclinica MedLife Cluj,Cluj,Calea Moților 32,cardiologie,pediatrie,nutritie","1,2,10");
-        Clinica c3 = new Clinica("3,Hyperclinica MedLife Unirii,Bucuresti,Strada Hans Cristian Andersen 1,stomatologie,ortopedie","3,4");
-        Clinica c4 = new Clinica("4,Hyperclinica MedLife Favorit,Bucuresti,Drumul Taberei 24,stomatologie,ortopedie,cardiologie", "9,8,7");
+//        Clinica c1 = new Clinica("1,Hyperclinica MedLife PDR Turnului Brasov,Brasov,Strada Turnului 5,nutritie,dermatologie","6,5");
+//        Clinica c2 = new Clinica("2,Hyperclinica MedLife Cluj,Cluj,Calea Moților 32,cardiologie,pediatrie,nutritie","1,2,10");
+//        Clinica c3 = new Clinica("3,Hyperclinica MedLife Unirii,Bucuresti,Strada Hans Cristian Andersen 1,stomatologie,ortopedie","3,4");
+//        Clinica c4 = new Clinica("4,Hyperclinica MedLife Favorit,Bucuresti,Drumul Taberei 24,stomatologie,ortopedie,cardiologie", "9,8,7");
+//
+//        clinici.add(c1);
+//        clinici.add(c2);
+//        clinici.add(c3);
+//        clinici.add(c4);
+        try{
+            File f = new File("src/code/clase/fisiere/clinici.csv");
+            Scanner read = new Scanner(f);
+            while(read.hasNextLine()){
 
-        clinici.add(c1);
-        clinici.add(c2);
-        clinici.add(c3);
-        clinici.add(c4);
+                String text1 = read.nextLine();
+                String text2 = read.nextLine();
+                clinici.add(new Clinica(text1, text2));
+            }
+        }catch(Exception e){}
     }
 
     @Override
@@ -97,7 +113,22 @@ public class ControlClinici implements Controler<Clinica>{
     @Override
     public void saveToFile() {
         //nothing for the moment => more to 2nd stage
+        try{
 
+            File f = new File("src/code/clase/fisiere/clinici.csv");
+            FileWriter fw = new FileWriter(f);
+            PrintWriter pw = new PrintWriter(fw);
+
+            String text = "";
+            Iterator<Clinica> itr = clinici.iterator();
+            while(itr.hasNext()){
+
+                Clinica c = itr.next();
+                text += c + "\n";
+            }
+            pw.print(text);
+            pw.close();
+        }catch (Exception e){}
     }
 
     @Override

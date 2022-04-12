@@ -98,7 +98,9 @@ public class Programare {
     @Override
     public String toString(){
 
-        return id + "," + idClient + "," + idMedic + "," + idClinica;
+        String text = id + "," + idClient + "," + idMedic + "," + idClinica;
+        text += data.dateForSaveToFile();
+        return text;
     }
 
     @Override

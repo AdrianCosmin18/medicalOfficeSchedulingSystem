@@ -3,8 +3,13 @@ package code.controllere;
 import code.clase.data.Data;
 import code.clase.programare.Programare;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Watchable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class ControlProgramari implements Controler<Programare>{
 
@@ -19,19 +24,28 @@ public class ControlProgramari implements Controler<Programare>{
     @Override
     public void load() {
 
-        Programare cosminLaDentist = new Programare(0,10,9,0, new Data("01,04,2022,12,30","01,04,2022,13,30"));
-        Programare ioanLaOrtopeide = new Programare(1,11,4,3,new Data("07,04,2022,09,30","07,04,2022,10,00"));
-        Programare andreiLaCardiologie = new Programare(2,12,1,2,new Data("03,04,2022,15,45","03,04,2022,16,30"));
-        Programare cosminLaPediatrie = new Programare(3,10,2,2, new Data("29,03,2022,14,15","29,03,2022,15,00"));
-        Programare ioanLaDermatologie = new Programare(4,11,5,1,new Data("30,03,2022,10,00","30,03,2022,11,00"));
-        Programare andreiLaNutritie = new Programare(5,12,6,1, new Data("10,04,2022,08,30","10,04,2022,09,30"));
+//        Programare cosminLaDentist = new Programare(0,10,9,0, new Data("01,04,2022,12,30","01,04,2022,13,30"));
+//        Programare ioanLaOrtopeide = new Programare(1,11,4,3,new Data("07,04,2022,09,30","07,04,2022,10,00"));
+//        Programare andreiLaCardiologie = new Programare(2,12,1,2,new Data("03,04,2022,15,45","03,04,2022,16,30"));
+//        Programare cosminLaPediatrie = new Programare(3,10,2,2, new Data("29,03,2022,14,15","29,03,2022,15,00"));
+//        Programare ioanLaDermatologie = new Programare(4,11,5,1,new Data("30,03,2022,10,00","30,03,2022,11,00"));
+//        Programare andreiLaNutritie = new Programare(5,12,6,1, new Data("10,04,2022,08,30","10,04,2022,09,30"));
+//
+//        programari.add(cosminLaDentist);
+//        programari.add(ioanLaOrtopeide);
+//        programari.add(andreiLaCardiologie);
+//        programari.add(cosminLaPediatrie);
+//        programari.add(ioanLaDermatologie);
+//        programari.add(andreiLaNutritie);
+        try{
+            File f = new File("src/code/clase/fisiere/programari.csv");
+            Scanner read = new Scanner(f);
+            while (read.hasNextLine()){
 
-        programari.add(cosminLaDentist);
-        programari.add(ioanLaOrtopeide);
-        programari.add(andreiLaCardiologie);
-        programari.add(cosminLaPediatrie);
-        programari.add(ioanLaDermatologie);
-        programari.add(andreiLaNutritie);
+                String text = read.nextLine();
+                programari.add(new Programare(text));
+            }
+        }catch(Exception e){}
     }
 
     @Override
@@ -99,6 +113,22 @@ public class ControlProgramari implements Controler<Programare>{
     public void saveToFile() {
 
         //more at 2nd stage of project
+        try{
+
+            File f = new File("src/code/clase/fisiere/programari.csv");
+            FileWriter fw = new FileWriter(f);
+            PrintWriter pw = new PrintWriter(fw);
+
+            String text = "";
+            Iterator<Programare> itr = programari.iterator();
+            while(itr.hasNext()){
+
+                Programare p = itr.next();
+                text += p + "\n";
+            }
+            pw.print(text);
+            pw.close();
+        }catch (Exception e){}
     }
 
     @Override

@@ -100,4 +100,10 @@ class ControlCliniciTest {
 
         assertEquals(true, new Clinica("3,Hyperclinica MedLife Unirii,Bucuresti,Strada Hans Cristian Andersen 1,stomatologie,ortopedie","3,4").equals(controlClinici.getClinicaByNameAndOras("Hyperclinica MedLife Unirii" , "Bucuresti")));
     }
+
+    @Test
+    public void testSaveToFile(){
+
+        controlClinici.saveToFile();
+    }
 }
