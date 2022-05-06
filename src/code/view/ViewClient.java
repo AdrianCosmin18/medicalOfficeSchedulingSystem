@@ -1,6 +1,7 @@
 
 package code.view;
 
+//import code.clase.Util;
 import code.clase.clinica.Clinica;
 import code.clase.data.Data;
 import code.clase.persoane.Client;
@@ -10,7 +11,7 @@ import code.clase.programare.Programare;
 import code.controllere.ControlClinici;
 import code.controllere.ControlPersoane;
 import code.controllere.ControlProgramari;
-import static code.clase.Util.*;
+//import static code.clase.Util.*;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -29,8 +30,6 @@ public class ViewClient extends View{
 //    private ControlProgramari controlProgramari;
 //    private ControlPersoane controlPersoane;
 //    private ControlClinici controlClinici;
-
-
 
     public ViewClient(ControlPersoane cp, Client client){//trimitem ca parametru si controllerul pentru ca aplicatia sa nu lucreze pe 2 controlere diferite
 
@@ -128,6 +127,7 @@ public class ViewClient extends View{
 
             controlClinici.traverse();
         }
+        iOsingleton.write("afiseazaListaClinici");
     }
 
     public void infoAnumitaClinica(){
@@ -148,6 +148,8 @@ public class ViewClient extends View{
                 System.out.println("\nMedic :");
                 System.out.println(medic.describe());
             }
+
+            iOsingleton.write("infoClinica");
         }
         else{
 
@@ -164,6 +166,7 @@ public class ViewClient extends View{
 
             Clinica clinica = controlClinici.getClinicaByID(id);
             System.out.println("Adresa clinici " + clinica.getNume() + " este : " + clinica.getAdresa());
+            iOsingleton.write("adresaClinica");
         }
         else{
             System.out.println("Nu exista clinica cu acest id");
@@ -183,6 +186,7 @@ public class ViewClient extends View{
 
                 System.out.println(s);
             }
+            iOsingleton.write("afiseazaListaSpecializari");
         }
     }
 
@@ -214,6 +218,8 @@ public class ViewClient extends View{
             System.out.println(m.describe());
             System.out.println();
         }
+
+        iOsingleton.write("afiseazaListaMedici");
     }
 
     public void inregistreazaProgramare(){
@@ -252,14 +258,15 @@ public class ViewClient extends View{
                 System.out.print("Data : ");
                 String startData = read.nextLine();
 
-                LocalDateTime localDateTimeStart = stringToLocalDateTime(startData);
+                LocalDateTime localDateTimeStart = Data.stringToLocalDateTime(startData);
                 LocalDateTime localDateTimeStop = localDateTimeStart.plusHours(1);
 
 
                 controlProgramari.add(new Programare(controlProgramari.getNextAvailableID(), this.client.getId(), medicID, clinica.getId(), new Data(localDateTimeStart, localDateTimeStop)));
-                controlProgramari.saveToFile();
+                //controlProgramari.saveToFile();
                 System.out.println("Inregistrare realizata cu succes !!!");
 
+                iOsingleton.write("inregistrareProgramare");
             }
             else{
 
@@ -288,6 +295,8 @@ public class ViewClient extends View{
             System.out.println(p.getData());
             System.out.println();
         }
+
+        iOsingleton.write("afiseazaIstoricProgramari");
     }
 
     public void modificaDataProgramare(){
@@ -303,7 +312,7 @@ public class ViewClient extends View{
         System.out.print("Data :");
         String nouaDataInceput = read.nextLine();
 
-        LocalDateTime localDateTimeStart = stringToLocalDateTime(nouaDataInceput);
+        LocalDateTime localDateTimeStart = Data.stringToLocalDateTime(nouaDataInceput);
         LocalDateTime localDateTimeStop = localDateTimeStart.plusHours(1);
 
         Data nouaData = new Data(localDateTimeStart, localDateTimeStop);
@@ -319,6 +328,8 @@ public class ViewClient extends View{
                 break;
             }
         }
+
+        iOsingleton.write("modificareProgramare");
     }
 
     public void stergeProgramare(){
@@ -331,6 +342,8 @@ public class ViewClient extends View{
             controlProgramari.remove(controlProgramari.indexOf(controlProgramari.getProgramareByID(id)));
             controlProgramari.saveToFile();
             System.out.println("Stergerea programarii a fost realizata cu succes !!!");
+
+            iOsingleton.write("stergeProgramare");
         }
         else{
             System.out.println("Nu exista o programare cu acest ID !!!");
